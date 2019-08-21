@@ -1,0 +1,146 @@
+#include <stdio.h>
+#include <conio.h>
+#include <iostream>
+#include<string>
+#include<windows.h>
+
+using namespace std;
+void displayRL(int row)
+{
+		string a[100][100];	
+		int count = 10;
+		int start = 50;
+		int cnt=0;
+
+		for(int i=0; i<50; i++){
+			// ------- Assigning --------
+
+			for(int x=0; x<=start; x++){
+				a[row][x]= " ";
+			}
+
+			for(int j=start-10; j<start; j++){
+				a[row][j] = "*";
+
+			}
+
+			count++;
+			start--;			
+
+			// ------- Printing --------
+			for(int r=0; r<=row; r++){
+				cout<<endl;
+			}
+			for(int c=0; c<50; c++){
+				
+				cout<<a[row][c];
+			}
+
+			Sleep(50);
+			system("cls");
+		}
+		system("cls");
+
+}
+
+
+
+string  a[100][100];
+
+void functionDisp(int r, int c, string data) {
+	system("cls");
+//	cout.fill('');
+//	cout.width(2);
+
+	for(int i=0; i<=r; i++){
+		for(int j=0; j<50; j++){
+			a[i][j] = " ";
+		}
+	}
+//	cout<<r<<c;
+
+/*	a[0][0] = "*";
+	a[1][0] = "*";
+	a[0][1] = "*";
+	a[1][1] = "*";
+*/
+	a[r][c] = data;
+
+	for( i=0; i<=r; i++){
+		for(int j=0; j<50; j++){
+		  cout <<a[i][j];
+		}
+		cout<<endl;
+	}
+
+}
+
+int getpnumber(){
+	int num;
+	num = rand() % 100 + 1;
+	return num;
+}
+
+
+int main()
+{
+    char ch;
+	int move = 0;
+
+	int row, column;
+	string data;
+
+	row = 1;
+	column = 1;
+	data = "><___[==]__><";
+
+
+	try{
+	  do{
+			ch=getch();
+			if(ch!='\0')
+			{
+			  ch=getch();
+			  if(ch=='H'){		// Up
+				 
+				  if (row >0 ){
+					row--;
+				  }				  
+				
+				  functionDisp(row,column,data);				 
+
+			  }
+			  else if(ch=='P'){ // Down
+				  
+				  if (row <100 ){
+					row++;
+				  }				  
+
+				  functionDisp(row,column,data);
+
+			  }
+			  else if(ch=='M'){ // Right
+
+				  if (column >=0 && column <100 ){
+					column++;
+				  }	
+
+				  functionDisp(row,column,data);
+			  }
+			  else if(ch=='K'){ // Left
+
+				  if (column >0 && column <100 ){
+					column--;
+				  }				
+
+				  functionDisp(row,column,data);
+
+			  }
+			}			
+	  }while(ch!='e');
+	}catch(int){
+		displayRL(0);
+	}
+
+  return 0;
+}

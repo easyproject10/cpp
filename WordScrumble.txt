@@ -1,0 +1,41 @@
+#include<iostream>
+#include<string>
+#include<windows.h>
+using namespace std;
+int main()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),14);
+	string name,guess,choice;
+	cout<<"Hi there, what's your name?"<<endl;
+	cin>>name;
+	system("cls");
+	cout<<"Welcome to the World of Scrambled Words "<<name<<endl;
+	cout<<"This is just an easy game. Just simply unscramble the letters"<<endl;
+	cout<<"Are you ready?[YES/NO]"<<endl;
+	cin>>choice;
+	if (choice=="YES")
+	{
+		system("cls");
+		cout<<"Guess this scrambled word"<<endl;
+		cout<<"putremoc"<<endl;
+		cin>>guess;
+		if (guess =="computer")
+			cout<<"Correct!"<<endl;
+		else if (guess =="V")
+			cout<<"HINT: A machine that manipulates data according to a list of instructions."<<endl;
+		else if (guess=="H")
+			cout<<"HINT: You're using it right now!"<<endl;
+		else
+			cout<<"Oops, wrong answer!"<<endl;
+        }
+	else if(choice=="NO")
+	{
+		cout<<"Are you chicken? Get out!";
+	}
+	else
+	{
+		cout<<"I can't understand you! Please restart.";
+	}
+	system("pause");
+    return 0;
+}

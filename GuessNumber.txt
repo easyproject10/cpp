@@ -1,0 +1,25 @@
+#include<iostream>
+#include<cstdlib>
+#include<ctime>
+using namespace std;
+
+int main()
+{
+    srand(time(0));
+    int number_guess = rand() % 100 + 1; // lets say I chose a random number between 1 and 100. <-- this code needs to go in the do-while loop.
+    char answer;
+    int tries = 0;
+
+    do 
+    {
+	  number_guess = rand() % 100 + 1;
+        cout << "choose a number between 1 and 100 and I'll guess it." << endl;
+        cout << "is " << number_guess << " your number?(y/n)" << endl;
+        ++tries; // calculates how many tries it took the computer
+        cin >> answer;
+        if (answer == 'y')
+        cout << "Whoa,I did it in " << tries << " shot(s)! I deserve a pat on the hardware!" <<  endl;
+    } while (answer == 'n'); // continue until the computer is wrong. <-- Do you mean until the computer is right? 
+system("pause"); 
+return 0;
+}

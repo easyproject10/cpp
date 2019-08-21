@@ -1,0 +1,227 @@
+#include <iostream.h> // For input/output
+#include <fstream.h> // For file input/output
+#include <string.h>  // For strcpy
+#include <time.h>  // For time
+#include <stdlib.h>  // For toupper and tolower
+
+#define MAX_WORD_SIZE 15 // The max size for words
+#define MAX_WORDS 255  // The max number of words
+
+void LoadFile(); // Prototypes for our functions
+void RunGame();
+void DrawGallows(int State);
+ 
+typedef char String[MAX_WORD_SIZE]; // Make a char type with 15 chars
+String Words[MAX_WORDS - 1];  // This array will hold our words
+int Count;       //word count
+
+// the main function of our hangman game
+void main()
+{
+ char Continue = 'Y'; // end game if = to 'N'
+ cout<<"Welcome to Hangman . . . Don't lose your head!"<<endl;
+
+ LoadFile(); // Load the data file
+
+ // Continue the game as long as the player wants
+ while(Continue == 'Y')
+ {
+  RunGame(); // Run the game
+  cout<<endl<<"Do you want to play again (Yes or No)? ";
+  cin>>Continue;
+  Continue = toupper(Continue);
+ }
+
+ // say good bye
+ cout<<endl<<"Thanks for playing."<<endl;
+}
+
+// This will load our file
+void LoadFile()
+{
+ char C;    //Used to find EOF
+ ifstream Datfile; //The in file
+
+ Count=0; //Set count to 0
+ 
+ // Open the data file
+ Datfile.open("words.dat");
+
+ //Loop till the end of file
+ while((C=Datfile.peek()) != EOF)
+ {
+  // Get the next word and then increment Count
+  Datfile>>Words[Count++];
+
+  // If we surpass the max exit and tell the user
+  if(Count > MAX_WORDS - 1)
+  {
+   cout<<endl<<"Too many words in the file, stopping with "
+    <<MAX_WORDS<<" Words."<<endl;
+   Count = MAX_WORDS;
+   break;
+  }
+
+ }
+
+ // We need to subtract one to get the correct number of words
+ Count--;
+
+ // Close the data file
+ Datfile.close();
+
+}
+
+// This function will run the game
+void RunGame()
+{
+ int Word;   // This will hold the subscript of our word
+ int Size;   // This will hold the length of our word
+ int State=1;  // This holds the game state
+ int Subscript=0; // This will hold subscripts
+ char Guess[MAX_WORD_SIZE]; // this will hold their current word
+ char Copy[MAX_WORD_SIZE]; // This will hold a copy of the word
+ char Letter;  //This will be their letter guess
+ int Correct=0;  // This is a True/False value deciding if they got a good answer
+ 
+ // Seed and create a random number
+ srand((unsigned)time( NULL )); // use time as a seed
+ Word = rand() % Count;
+
+ // Make a local copy of the word
+ strcpy(Copy,Words[Word]);
+
+ Size = strlen(Words[Word]); // Get the word's size
+
+ // Create a null terminated string to represent the word as the
+ // player knows it.
+ for(; Subscript < Size; Subscript++)
+ {
+  Guess[Subscript] = '-';
+ }
+
+ // insert the null character
+ Guess[Subscript] = '\0';
+
+ // Go till the player is hung
+ while(State!=6)
+ {
+  DrawGallows(State); //Draw the gallows
+  cout<<Guess<<endl; // Draw Guess
+
+  cout<<"Guess a letter :";
+  cin>>Letter;
+
+  // We will use only lower case letters
+  Letter = tolower(Letter);
+ 
+  // Loop through the word
+  for(Subscript = 0; Subscript < Size; Subscript++)
+  {
+
+   //if the guess is good tell the user and update Guess
+   if(Copy[Subscript] == Letter)
+   {
+    Guess[Subscript] = Letter;
+    Correct = 1;
+    cout<<endl<<"Good Guess!";
+
+    // If guess equals the word they won so exit
+    if(strcmp(Words[Word],Guess) == 0)
+    {
+     cout<<endl<<"Yea, You survived and won!";
+     return;
+    }
+   }
+  }
+
+  // If they didn't get aletter correct chide the user
+  if(Correct == 0)
+  {
+   cout<<endl<<"Sorry, bad guess!";
+   State++;
+  }
+
+  Correct = 0; // reset Correct
+
+ }
+
+ DrawGallows(State); //Draw the gallows at end of game
+ //They lost if they are here so tell them the answer.
+ cout<<"The word was : "<<Words[Word]<<endl<<endl;
+
+}
+
+// This will Draw the gallows according to the state
+void DrawGallows(int State)
+{
+ system("cls");
+ if(State==6)
+ {
+  // The \\ will translate as '\' because it is a special char
+  cout<<endl<<endl
+   <<"   +----+     "<<endl
+   <<"   |    |     "<<endl
+   <<"   |    O     "<<endl
+   <<"   |   /|\\   "<<endl
+   <<"   |   / \\   "<<endl
+   <<"   |Your Dead "<<endl
+   <<"  ============"<<endl<<endl;
+ }
+ else if(State==5)
+ {
+  cout<<endl<<endl
+   <<"   +----+  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |    O  "<<endl
+   <<"   |   /|\\ "<<endl
+   <<"   |     \\ "<<endl
+   <<"   |       "<<endl
+   <<"  ============"<<endl<<endl;
+ }
+ else if(State==4)
+ {
+  cout<<endl<<endl
+   <<"   +----+  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |    O  "<<endl
+   <<"   |   /|\\ "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"  ============="<<endl<<endl;
+ }
+ else if(State==3)
+ {
+  cout<<endl<<endl
+   <<"   +----+  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |    O  "<<endl
+   <<"   |   /|  "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"  ============="<<endl<<endl;
+ }
+ else if(State==2)
+ {
+  cout<<endl<<endl
+   <<"   +----+  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |    O  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"  ============="<<endl<<endl;
+ }
+ else if(State==1)
+ {
+  cout<<endl<<endl
+   <<"   +----+  "<<endl
+   <<"   |    |  "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"   |       "<<endl
+   <<"  ============="<<endl<<endl;
+ }
+
+} 

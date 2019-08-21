@@ -1,0 +1,57 @@
+	int a, b;
+
+	cout<<"Enter value for first input 1 or 0 ";
+	cin>>a;
+	cout<<"\n Enter value for second input 1 or 0 ";
+	cin >>b;
+
+	if(a == 1 && b == 1){
+		cout<<"     ___\n";
+		cout<<"1 --|   \\___ 1\n";
+		cout<<"1 --|___/ \n";
+	}
+	else
+	{
+		cout<<"    ___\n";
+		cout<<a;
+		cout<<"--|   \\___ 0\n";
+		cout<<b;
+		cout<<"--|___/ \n";
+	}
+
+
+cout<<endl;
+
+   if(a == 0 || b == 0){
+		cout<<"  ___\n ";
+		cout<<"0--\\   \\___0\n";
+		cout<<"0--/___/\n";
+
+	}
+	else
+	{
+		cout<<"  ___\n";
+		cout<<a;
+		cout<<"--\\   \\___1\n";
+		cout<<b;
+		cout<<"--/___/\n";
+	}
+
+
+cout<<endl;
+
+	if(a == 1){
+		cout<<"1 ___|\\___0 \n";
+		cout<<"     |/ \n\n";
+	}
+	else{
+		cout<<"0 ___|\\___1 \n";
+		cout<<"     |/ \n\n";
+	}
+
+
+
+	
+
+
+	return 0; 

@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+void locations(int &, int &);
+void tables(char [][3], int);
+
+int main()
+{
+	const int ROW = 3;
+	const int COLUMN = 3;
+	char table[ROW][COLUMN] = { '*', '*', '*',
+		                        '*', '*', '*',
+								'*', '*', '*'};
+	int rows, columns;
+	
+	cout << " TIC TAC TOE " << endl;
+	cout << "____________\n\n";
+
+	tables(table, ROW);
+
+	cout << "\n Player 1 is X\n Player 2 is O" << endl;
+	
+	
+	for(int count = 0; count < 9; count++)
+	{
+		cout << "\n Player 1" << endl;
+		locations(rows, columns);
+		table[rows][columns] = 'X';
+		tables(table, ROW);
+
+		cout << "\n Player 2" << endl;
+		locations(rows, columns);
+		table[rows][columns] = 'O';
+		tables(table, ROW);
+	}	
+	
+
+	return 0;
+}
+
+void locations(int &row, int &column)
+{
+	cout << " Enter a row: ";
+	cin >> row;
+	while(row < 0 || row > 2)
+	{
+		cout << "\n You must enter a number from 0 to 2.\n";
+		cout << " Enter a number for the row: ";
+		cin >> row;
+	}
+	cout << " Enter a column: ";
+	cin >> column;
+	while(column < 0 || column > 2)
+	{
+		cout << "\n You must enter a number from 0 to 2.\n";
+		cout << " Enter a number for the column: ";
+		cin >> column;
+	}
+}
+
+void tables(char table[][3], int rows)
+{
+	for(int x = 0; x < rows; x++)
+	{
+		for(int y = 0; y < 3; y++)
+		{
+			cout << " " << table[x][y] << " | ";
+		}
+		cout << endl;
+		cout << " ------------- " << endl;
+	}
+}
